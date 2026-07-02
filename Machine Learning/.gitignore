@@ -1,0 +1,22 @@
+# Virtual environment
+venv/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Downloaded datasets (large — fetched automatically at runtime)
+data/
+
+# Pretrained model weights (large — downloaded automatically at runtime)
+weights/
+*.pth
+
+# macOS / Windows metadata
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
