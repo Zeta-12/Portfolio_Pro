@@ -1,0 +1,37 @@
+dataset:
+  # Local pill dataset (MVTec AD format — already present in dataset/pill/)
+  # Training: dataset/pill/train/good/  (267 defect-free images)
+  # Test:     dataset/pill/test/        (good + 7 defect categories)
+  # GT masks: dataset/pill/ground_truth/ (pixel-level annotations)
+  root: "dataset"
+  category: "pill"
+  image_size: [256, 256]
+  train_batch_size: 32
+  eval_batch_size: 32
+
+model:
+  # Supported: "patchcore" (fast, no extra data) | "efficientad" (needs imagenet_dir)
+  name: "patchcore"
+
+  patchcore:
+    backbone: "wide_resnet50_2"   # upgrade from ResNet-50: better features
+    layers: ["layer2", "layer3"]
+    pre_trained: true
+    coreset_sampling_ratio: 0.1
+    num_neighbors: 9
+
+  # Uncomment + set imagenet_dir to use EfficientAD instead of PatchCore
+  # efficientad:
+  #   model_size: "small"          # "small" | "medium"
+  #   teacher_out_channels: 384
+  #   imagenet_dir: "data/imagenet" # directory with ImageNet images for teacher distillation
+
+# anomalib Engine settings
+engine:
+  accelerator: "auto"           # "auto" | "cpu" | "gpu"
+  max_epochs: 1                 # PatchCore uses 1 epoch (coreset fit, not gradient descent)
+  default_root_dir: "checkpoints"
+
+output_dir: "plots"
+threshold: 0.5                  # normalised score threshold for ANOMALY label
+max_test_images: 50             # cap test set per run (0 = all)
