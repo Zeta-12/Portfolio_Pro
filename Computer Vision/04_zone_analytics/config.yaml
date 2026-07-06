@@ -1,0 +1,30 @@
+model:
+  name: yolo11n.pt
+  conf: 0.3
+  person_class_id: 0
+tracker:
+  algorithm: bytetrack.yaml
+  persist: true
+video:
+  path: data/TownCentreXVID.mp4
+zones:
+  street:
+  - - 0.0016
+    - 0.8389
+  - - 0.7156
+    - 0.0519
+  - - 0.9141
+    - 0.0593
+  - - 0.4156
+    - 0.9926
+  - - 0.0073
+    - 0.9926
+  - - 0.0021
+    - 0.8407
+offense_zones:
+- street
+max_capacity: 8
+output_dir: output
+data_dir: data
+frame_skip: 2
+max_frames: 100         # 0 = process all frames
